@@ -60,20 +60,23 @@ jobs:
       # Uncomment if Doctrine ORM is installed
       # - name: Doctrine Schema Validator
       #   run: docker compose exec -T php bin/console -e test doctrine:schema:validate
+
+      - name: Run custom linter
+        run: docker compose exec -T php composer lint
+
+      - name: Run PHPUnit
+        run: docker compose exec -T php bin/phpunit
+
   lint:
-    name: Lint
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: read
-      statuses: write
     steps:
       - name: Checkout
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
           persist-credentials: false
-      - name: Lint Code Base
+
+      - name: Lint Code Base (non-PHP)
         uses: super-linter/super-linter/slim@v8
         env:
           GITHUB_ACTIONS_CONFIG_FILE: actionlint.yaml
