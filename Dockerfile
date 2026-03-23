@@ -29,7 +29,8 @@ RUN <<-EOF
 		apcu \
 		intl \
 		opcache \
-		zip
+		zip \
+		xml
 	rm -rf /var/lib/apt/lists/*
 EOF
 
